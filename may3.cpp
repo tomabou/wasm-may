@@ -1,9 +1,7 @@
-#include <iostream>
 #include <algorithm>
 #include <vector>
 #include <queue>
 #include <cmath>
-#include <functional>
 #include <random>
 //枠の長さ
 const int N = 1000;
