@@ -3080,3 +3080,16 @@ vector<int> main_calc(int tate, int yoko, int n, int *vertex, int m, int *edge)
 
     return answer;
 }
+
+extern "C"
+{
+    void create_maze(int tate, int yoko, int n, int *vertex, int m, int *edge, int *buf)
+    {
+        auto ans = main_calc(tate, yoko, n, vertex, m, edge);
+        for (int i = 0; i < ans.size(); i++)
+        {
+            buf[i] = ans[i];
+        }
+        return;
+    }
+}
