@@ -3077,6 +3077,8 @@ vector<int> main_calc(int tate, int yoko, int n, int *vertex, int m, int *edge)
         }
     }
     answer.push_back(-1);
+    int length = answer.size();
+    answer.insert(answer.begin(), length);
 
     return answer;
 }

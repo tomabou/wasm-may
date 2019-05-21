@@ -15,3 +15,6 @@ test: src/test.cpp
 	-s EXPORTED_FUNCTIONS="['_test_func']" \
 	
 
+ctest: src/may3.cpp src/main.cpp
+	g++ src/main.cpp -o build/a.out
+	build/a.out < graph.txt | sed -e 's/-1 /\n/g'

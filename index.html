@@ -1,25 +1,28 @@
 <html>
 
 <body>
-    <script src="build/test.js"></script>
+    <script src="build/may3.js"></script>
     <script>
         Module.onRuntimeInitialized = function () {
             console.log("hello")
-            const offset = Module._malloc(20);
-            console.log(offset)
-            const intPtr = Module.HEAP32.subarray(offset / 4, offset / 4 + 5);
-            intPtr[0] = 1;
-            intPtr[1] = 2;
-            intPtr[2] = 3;
-            intPtr[3] = 4;
-            intPtr[4] = 5;
-            const ans = Module.ccall("test_func", "number", ["number", "number"], [5, offset])
-            for (let i = 0; i < 5; i++) {
-                console.log(intPtr[i])
+            const tate = 3;
+            const yoko = 4;
+            const vertex = new Uint8Array(new Uint32Array([3, 1, 3, 2, 3, 3]).buffer);
+            const edge = new Uint8Array(new Uint32Array([3, 1, 3, 2, 3, 2, 3, 3]).buffer);
+            const maze_buf = Module._malloc(400 * 4);
+            Module.ccall("create_maze"
+                , "number",
+                ["number", "number", "number", "array", "number", "array", "number"],
+                [tate, yoko, 3, vertex, 2, edge, maze_buf])
+            const intPtr = Module.HEAP32.subarray(maze_buf / 4, maze_buf / 4 + 400);
+            const len = intPtr[0];
+            console.log(len);
+            let ans = [];
+            for (let i = 1; i <= len; i++) {
+                ans.push(intPtr[i]);
             }
-            Module._free(offset);
-
-            console.log(ans)
+            console.log(ans);
+            Module._free(maze_buf);
         }
     </script>
 </body>

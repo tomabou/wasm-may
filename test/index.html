@@ -1,0 +1,26 @@
+<html>
+
+<body>
+    <script src="build/test.js"></script>
+    <script>
+        Module.onRuntimeInitialized = function () {
+            console.log("hello")
+            const offset = Module._malloc(20);
+            const intPtr = Module.HEAP32.subarray(offset / 4, offset / 4 + 5);
+            intPtr[0] = 1;
+            intPtr[1] = 2;
+            intPtr[2] = 3;
+            intPtr[3] = 4;
+            intPtr[4] = 5;
+            const ans = Module.ccall("test_func", "number", ["number", "number"], [5, offset])
+            for (let i = 0; i < 5; i++) {
+                console.log(intPtr[i])
+            }
+            Module._free(offset);
+
+            console.log(ans)
+        }
+    </script>
+</body>
+
+</html>
