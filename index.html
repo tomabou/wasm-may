@@ -17,10 +17,18 @@
             const intPtr = Module.HEAP32.subarray(maze_buf / 4, maze_buf / 4 + 400);
             const len = intPtr[0];
             console.log(len);
-            let ans = [];
+            let ans = [[]];
+            let ans_index = 0;
             for (let i = 1; i <= len; i++) {
-                ans.push(intPtr[i]);
+                const j = intPtr[i];
+                if (j === -1) {
+                    ans.push([]);
+                    ans_index = ans_index + 1;
+                    continue;
+                }
+                ans[ans_index].push(intPtr[i]);
             }
+            ans.pop(); ans.pop();
             console.log(ans);
             Module._free(maze_buf);
         }
